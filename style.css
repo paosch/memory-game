@@ -1,12 +1,15 @@
 .container {
   border: 1px solid;
-  width: 700px;
+  width: 840px;
   margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .flip-card {
   background-color: transparent;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
@@ -45,4 +48,9 @@
   background-color: dodgerblue;
   color: white;
   transform: rotateY(180deg);
+}
+
+.card-img{
+  width: 100%;
+  heigth: 100%;
 }
