@@ -26,29 +26,16 @@ document.querySelector(".container").appendChild(flipCard);
 const flipCardFront = document.createElement("div");
 flipCardFront.classList.add("flip-card-front");
 
-const image1 = document.createElement("img");
-image1.classList.add("card-img");
-image1.setAttribute("src", "https://www.w3schools.com/howto/img_avatar.png");
-
-flipCardFront.appendChild(image1);
+const h1 = document.createElement("h1");
+h1.innerText = "Card Game";
+flipCardFront.appendChild(h1);
 
 const flipCardBack = document.createElement("div");
-flipCardBack.classList.add("flip-card-back");
+flipCardBack.classList.add("flip-card-back", "bg-dodgerblue");
 
 flipCardInner.appendChild(flipCardFront);
 flipCardInner.appendChild(flipCardBack);
 
-const h1 = document.createElement("h1");
-h1.innerText = "John Doe";
-flipCardBack.appendChild(h1);
-
-const p1 = document.createElement("p")
-p1.innerText = "Architect & Engineer";
-flipCardBack.appendChild(p1);
-
-const p2 = document.createElement("p")
-p2.innerText = "We love that guy"
-flipCardBack.appendChild(p2);
 
 
 const arr = [];
