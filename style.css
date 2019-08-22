@@ -1,15 +1,22 @@
 .container {
   border: 1px solid;
-  width: 700px;
+  width: 900px;
   margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
+
 .flip-card {
   background-color: transparent;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border: 1px solid #f1f1f1;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  display: inline-block;
+  margin-bottom: 1rem;
 }
+
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
@@ -42,7 +49,42 @@
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
   color: white;
   transform: rotateY(180deg);
+}
+
+.bg-dodgerblue {
+  background-color: dodgerblue;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.bg-pink {
+  background-color: pink;
+}
+
+.bg-orange {
+  background-color: orange;
+}
+
+.bg-yellow {
+  background-color: yellow;
+}
+
+.bg-navy {
+  background-color: navy;
+}
+
+.bg-black {
+  background-color: black;
+}
+.card-img {
+  width: 200px;
+  height: 200px;
 }
