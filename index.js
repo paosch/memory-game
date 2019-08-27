@@ -1,7 +1,28 @@
-const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
-colors.forEach(function(color){
-  for (let i=0; i<2; i++){
 
+const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
+colors.map(color => colors.push(color))
+
+function shuffle(colors) {
+  let ctr = colors.length;
+  let temp;
+  let index;
+
+  // While there are elements in the array
+  while (ctr > 0) {
+    // Pick a random index
+    index = Math.floor(Math.random() * ctr);
+    // Decrease ctr by 1
+    ctr--;
+    // And swap the last element with it
+    temp = colors[ctr];
+    colors[ctr] = colors[index];
+    colors[index] = temp;
+  }
+  return colors;
+}
+console.log(shuffle(colors));
+
+colors.forEach(function(color){
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
 
@@ -23,5 +44,5 @@ colors.forEach(function(color){
 
     flipCardInner.appendChild(flipCardFront);
     flipCardInner.appendChild(flipCardBack);
-  }
+
 });
