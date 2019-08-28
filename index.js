@@ -1,7 +1,8 @@
-const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
-colors.forEach(function(color){
-  for (let i=0; i<2; i++){
+let colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
+colors.map(color => colors.push(color))
 
+colors.forEach(function(color){
+  
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
 
@@ -23,5 +24,5 @@ colors.forEach(function(color){
 
     flipCardInner.appendChild(flipCardFront);
     flipCardInner.appendChild(flipCardBack);
-  }
+    
 });
