@@ -15,6 +15,7 @@
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   display: inline-block;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 
@@ -29,7 +30,7 @@
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
+.flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 

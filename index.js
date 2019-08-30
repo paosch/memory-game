@@ -1,4 +1,4 @@
-const cards_total = 10;
+const cards_total = 16;
 const randomized_colors = [];
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 
@@ -16,6 +16,9 @@ shuffle_array(randomized_colors);
 randomized_colors.forEach(function(color){
   const flipCard = document.createElement("div");
   flipCard.classList.add("flip-card");
+  flipCard.addEventListener("click", function(event){
+    event.currentTarget.classList.add("flipped");
+  });
 
   const flipCardInner = document.createElement("div");
   flipCardInner.classList.add("flip-card-inner");
