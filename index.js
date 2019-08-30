@@ -1,13 +1,19 @@
-let colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
-colors.map(color => colors.push(color))
+const cards_total = 10;
+const randomized_colors = [];
+const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 
-let randomized_colors = []
-for (let i=0; i=colors.length; i++) {
-  randomized_colors.push(colors.splice(Math.floor(Math.random() * colors.length), 1)[0]);
+for (let i=0; i<cards_total/2; i++){
+  randomized_colors.push(colors[i]);
+  randomized_colors.push(colors[i]);
 }
 
+function shuffle_array(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+shuffle_array(randomized_colors);
+
 randomized_colors.forEach(function(color){
-  
   const flipCard = document.createElement("div");
   flipCard.classList.add("flip-card");
 
@@ -29,5 +35,4 @@ randomized_colors.forEach(function(color){
 
   flipCardInner.appendChild(flipCardFront);
   flipCardInner.appendChild(flipCardBack);
-
 });
