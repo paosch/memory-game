@@ -1,27 +1,41 @@
-const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"]
-colors.forEach(function(color){
-  for (let i=0; i<2; i++){
+const cards_total = 16;
+const randomized_colors = [];
+const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 
-    const flipCard = document.createElement("div");
-    flipCard.classList.add("flip-card");
+for (let i=0; i<cards_total/2; i++){
+  randomized_colors.push(colors[i]);
+  randomized_colors.push(colors[i]);
+}
 
-    const flipCardInner = document.createElement("div");
-    flipCardInner.classList.add("flip-card-inner");
+function shuffle_array(array) {
+  array.sort(() => Math.random() - 0.5);
+}
 
-    flipCard.appendChild(flipCardInner);
-    document.querySelector(".container").appendChild(flipCard);
+shuffle_array(randomized_colors);
 
-    const flipCardFront = document.createElement("div");
-    flipCardFront.classList.add("flip-card-front");
+randomized_colors.forEach(function(color){
+  const flipCard = document.createElement("div");
+  flipCard.classList.add("flip-card");
+  flipCard.addEventListener("click", function(event){
+    event.currentTarget.classList.add("flipped");
+  });
 
-    const h1 = document.createElement("h1");
-    h1.innerText = "Card Game";
-    flipCardFront.appendChild(h1);
+  const flipCardInner = document.createElement("div");
+  flipCardInner.classList.add("flip-card-inner");
 
-    const flipCardBack = document.createElement("div");
-    flipCardBack.classList.add("flip-card-back", `bg-${color}`);
+  flipCard.appendChild(flipCardInner);
+  document.querySelector(".container").appendChild(flipCard);
 
-    flipCardInner.appendChild(flipCardFront);
-    flipCardInner.appendChild(flipCardBack);
-  }
+  const flipCardFront = document.createElement("div");
+  flipCardFront.classList.add("flip-card-front");
+
+  const h1 = document.createElement("h1");
+  h1.innerText = "Card Game";
+  flipCardFront.appendChild(h1);
+
+  const flipCardBack = document.createElement("div");
+  flipCardBack.classList.add("flip-card-back", `bg-${color}`);
+
+  flipCardInner.appendChild(flipCardFront);
+  flipCardInner.appendChild(flipCardBack);
 });
