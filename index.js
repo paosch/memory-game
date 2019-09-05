@@ -13,12 +13,14 @@ function shuffle_array(array) {
 
 shuffle_array(randomized_colors);
 
+function flipCardToBack(event){
+  event.currentTarget.classList.add("flipped");
+}
+
 randomized_colors.forEach(function(color){
   const flipCard = document.createElement("div");
   flipCard.classList.add("flip-card");
-  flipCard.addEventListener("click", function(event){
-    event.currentTarget.classList.add("flipped");
-  });
+  flipCard.addEventListener("click", flipCardToBack);
 
   const flipCardInner = document.createElement("div");
   flipCardInner.classList.add("flip-card-inner");
@@ -31,6 +33,7 @@ randomized_colors.forEach(function(color){
 
   const h1 = document.createElement("h1");
   h1.innerText = "Card Game";
+  h1.classList.add("flip-card-front-h1")
   flipCardFront.appendChild(h1);
 
   const flipCardBack = document.createElement("div");
