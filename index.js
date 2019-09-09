@@ -2,7 +2,7 @@ const cards_total = 16;
 const randomized_colors = [];
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 
-for (let i=0; i<cards_total/2; i++){
+for (let i = 0; i < cards_total / 2; i++) {
   randomized_colors.push(colors[i]);
   randomized_colors.push(colors[i]);
 }
@@ -13,13 +13,31 @@ function shuffle_array(array) {
 
 shuffle_array(randomized_colors);
 
-function flipCardToBack(event){
-  event.currentTarget.classList.add("flipped");
+let prevClickedCard;
+
+function flipCardToBack(event) {
+  const currentClickedCard = event.currentTarget;
+  currentClickedCard.classList.add("flipped");
+  if (prevClickedCard) {
+    const colorsMatched = prevClickedCard.getAttribute("data-color") === currentClickedCard.getAttribute("data-color");
+    if (!colorsMatched) {
+      setTimeout(function() {
+        currentClickedCard.classList.remove("flipped");
+        prevClickedCard.classList.remove("flipped");
+      }, 800);
+    }
+    setTimeout(function() {
+      prevClickedCard = null;
+    }, 800)
+  } else {
+    prevClickedCard = currentClickedCard;
+  }
 }
 
-randomized_colors.forEach(function(color){
+randomized_colors.forEach(function(color) {
   const flipCard = document.createElement("div");
   flipCard.classList.add("flip-card");
+  flipCard.setAttribute("data-color", color)
   flipCard.addEventListener("click", flipCardToBack);
 
   const flipCardInner = document.createElement("div");
