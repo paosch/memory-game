@@ -14,10 +14,13 @@ function shuffle_array(array) {
 shuffle_array(randomized_colors);
 
 let prevClickedCard;
+let flipped_and_matched = 0;
 
 function flipCardToBack(event) {
   const currentClickedCard = event.currentTarget;
   currentClickedCard.classList.add("flipped");
+  // do the following until flipped_and_matched = cards_total/2
+  // OR while that is !== cards_total/2 do the following
   if (prevClickedCard) {
     const colorsMatched = prevClickedCard.getAttribute("data-color") === currentClickedCard.getAttribute("data-color");
     if (!colorsMatched) {
@@ -25,13 +28,20 @@ function flipCardToBack(event) {
         currentClickedCard.classList.remove("flipped");
         prevClickedCard.classList.remove("flipped");
       }, 800);
+    } else {
+      flipped_and_matched += 1;
     }
+
     setTimeout(function() {
       prevClickedCard = null;
     }, 800)
+
   } else {
     prevClickedCard = currentClickedCard;
   }
+// when flipped_and_matched = cards_total/2 shuffle_array(randomized_colors);
+// now do this other thing
+  console.log(flipped_and_matched);
 }
 
 randomized_colors.forEach(function(color) {
