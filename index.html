@@ -9,7 +9,20 @@
 </head>
 
 <body>
+  <div>
+    <label for="card-number">How many cards would you like to play with?</label>
+
+    <select id="card-number" onchange="grabValue()">
+      <option value="">--Please choose an option--</option>
+      <option id="eight" value="8">8</option>
+      <option id="twelve" value="12">12</option>
+      <option id="sixteen" value="16">16</option>
+      <option id="twenty" value="20">20</option>
+      <option id="thirty" value="30">30</option>
+    </select>
+  </div>
   <div class="container"></div>
 </body>
+
 
 </html>
