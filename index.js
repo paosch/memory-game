@@ -1,4 +1,4 @@
-const cards_total = 8;
+const cards_total = 16;
 const randomized_colors = [];
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 
@@ -34,19 +34,20 @@ function flipCardToBack(event) {
 
     setTimeout(function() {
       prevClickedCard = null;
-    }, 800)
+    }, 800);
 
   } else {
     prevClickedCard = currentClickedCard;
   }
 
-  if (flipped_and_matched === 4) {
-    let all_cards = document.querySelectorAll(".flipped");
-    all_cards.forEach(thecard => thecard.classList.remove("flipped"));
-    location.reload();
+  if (flipped_and_matched === 8) {
+    setTimeout(function() {
+      let all_cards = document.querySelectorAll(".flipped");
+      all_cards.forEach(thecard => thecard.classList.remove("flipped"));
+      location.reload();
+    }, 800);
   }
 }
-
 
 randomized_colors.forEach(function(color) {
   const flipCard = document.createElement("div");
