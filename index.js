@@ -3,6 +3,7 @@ const cards_total = 16;
 const total_pairs = cards_total / 2;
 const randomized_colors = [];
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
+const flipcardTime = 800;
 
 for (let i = 0; i < total_pairs; i++) {
   randomized_colors.push(colors[i]);
@@ -16,34 +17,37 @@ function shuffle_array(array) {
 function flipCardToBack(event) {
   const currentClickedCard = event.currentTarget;
   currentClickedCard.classList.add("flipped");
+
   if (prevClickedCard) {
-    const colorsMatched = prevClickedCard.getAttribute("data-color") === currentClickedCard.getAttribute("data-color");
+    const colorsMatched =
+      prevClickedCard.getAttribute("data-color") ===
+      currentClickedCard.getAttribute("data-color");
+
     if (!colorsMatched) {
-      setTimeout(function() {
+      setTimeout(() => {
         currentClickedCard.classList.remove("flipped");
         prevClickedCard.classList.remove("flipped");
-      }, 800);
+      }, flipcardTime);
     } else {
       flipped_and_matched ++;
     }
 
-    setTimeout(function() {
-      prevClickedCard = null;
-    }, 800);
-
+    setTimeout(() => (prevClickedCard = null), flipcardTime);
   } else {
     prevClickedCard = currentClickedCard;
   }
 
   if (flipped_and_matched === total_pairs) {
-    setTimeout(function() {
+    setTimeout(() => {
       let all_cards = document.querySelectorAll(".flipped");
       all_cards.forEach(thecard => thecard.classList.remove("flipped"));
-      setTimeout(function() {
+
+      setTimeout(() => {
         document.querySelector(".container").innerHTML = "";
         startGame();
-      }, 800);
-    }, 800);
+      }, flipcardTime);
+
+    }, flipcardTime);
   }
 }
 
