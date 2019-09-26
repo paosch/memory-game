@@ -1,16 +1,10 @@
-let prevClickedCard, flipped_and_matched, cards_total, total_pairs;
+let prevClickedCard, flipped_and_matched, total_pairs;
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 const flipcardTime = 800;
 
-function grabValue() {
-  const randomized_colors = [];
-  cards_total = document.querySelector('#card-number').value;
-  total_pairs = cards_total / 2;
-  for (let i = 0; i < total_pairs; i++) {
-    randomized_colors.push(colors[i]);
-    randomized_colors.push(colors[i]);
-  }
-  startGame(randomized_colors);
+function grabValue(element) {
+  cards_total = element.value;
+  startGame();
 }
 
 function shuffle_array(array) {
@@ -53,7 +47,13 @@ function flipCardToBack(event) {
   }
 }
 
-function startGame(randomized_colors) {
+function startGame() {
+  const randomized_colors = [];
+  total_pairs = cards_total / 2;
+  for (let i = 0; i < total_pairs; i++) {
+    randomized_colors.push(colors[i]);
+    randomized_colors.push(colors[i]);
+  }
   flipped_and_matched = 0;
   document.querySelector(".container").innerHTML = "";
   shuffle_array(randomized_colors);
