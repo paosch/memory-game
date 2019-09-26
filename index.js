@@ -2,6 +2,10 @@ let prevClickedCard, flipped_and_matched, total_pairs;
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
 const flipcardTime = 800;
 
+function init() {
+  // your code
+}
+
 function grabValue(element) {
   cards_total = element.value;
   startGame();
