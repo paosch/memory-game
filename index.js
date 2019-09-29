@@ -3,11 +3,18 @@ const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black
 const flipcardTime = 800;
 
 function init() {
-  // your code
+  location.reload();
 }
 
 function grabValue(element) {
   cards_total = element.value;
+  
+  const arrowButton = document.createElement("div");
+  arrowButton.innerText = "⬅️";
+  arrowButton.classList.add("arrow");
+  document.body.appendChild(arrowButton);
+  arrowButton.addEventListener("click", init);
+
   startGame();
 }
 

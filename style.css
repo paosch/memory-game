@@ -150,3 +150,10 @@ body {
 .select-css option {
     font-weight:normal;
 }
+
+.arrow {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  font-size: 60px;
+}
