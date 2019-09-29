@@ -8,7 +8,7 @@ function init() {
 
 function grabValue(element) {
   cards_total = element.value;
-  
+
   const arrowButton = document.createElement("div");
   arrowButton.innerText = "⬅️";
   arrowButton.classList.add("arrow");
@@ -95,4 +95,12 @@ function startGame() {
     flipCardInner.appendChild(flipCardFront);
     flipCardInner.appendChild(flipCardBack);
   });
+
+  const cardfrontColor = document.querySelectorAll(".flip-card-front");
+  let randColor = randomized_colors[Math.floor(Math.random() * randomized_colors.length)];
+
+  cardfrontColor.forEach(function(cardfront) {
+    cardfront.style.backgroundColor = randColor;
+  });
+
 };
