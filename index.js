@@ -1,20 +1,35 @@
-let prevClickedCard, flipped_and_matched, total_pairs;
-const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
+let prevClickedCard, flipped_and_matched, total_pairs, cards_total;
+const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy", "brown", "purple"];
 const flipcardTime = 800;
+const container = document.querySelector(".container");
+
+init();
 
 function init() {
-  location.reload();
+  container.innerHTML = "";
+  const gameName = document.createElement("h1");
+  gameName.innerText = "Memory cards game";
+  container.appendChild(gameName);
+  const para = document.createElement("p");
+  para.innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+  container.appendChild(para);
+
+  var array = ["Please choose an option", 8, 12, 16, 20];
+  const selectList = document.createElement("select");
+  selectList.classList.add("select-css");
+  selectList.addEventListener("change", grabValue);
+  container.appendChild(selectList);
+
+  for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    selectList.appendChild(option);
+  }
 }
 
-function grabValue(element) {
-  cards_total = element.value;
-
-  const arrowButton = document.createElement("div");
-  arrowButton.innerText = "⬅️";
-  arrowButton.classList.add("arrow");
-  document.body.appendChild(arrowButton);
-  arrowButton.addEventListener("click", init);
-
+function grabValue(e) {
+  cards_total = e.target.value; 
   startGame();
 }
 
@@ -61,14 +76,23 @@ function flipCardToBack(event) {
 function startGame() {
   const randomized_colors = [];
   total_pairs = cards_total / 2;
+
   for (let i = 0; i < total_pairs; i++) {
     randomized_colors.push(colors[i]);
     randomized_colors.push(colors[i]);
   }
   flipped_and_matched = 0;
-  document.querySelector(".container").innerHTML = "";
-  shuffle_array(randomized_colors);
 
+  container.innerHTML = "";
+
+  const arrowButton = document.createElement("div");
+  arrowButton.innerText = "⬅️";
+  arrowButton.classList.add("arrow");
+  container.appendChild(arrowButton);
+  arrowButton.addEventListener("click", init);
+
+  shuffle_array(randomized_colors);
+  console.log(randomized_colors);
   randomized_colors.forEach(function(color) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
@@ -79,7 +103,7 @@ function startGame() {
     flipCardInner.classList.add("flip-card-inner");
 
     flipCard.appendChild(flipCardInner);
-    document.querySelector(".container").appendChild(flipCard);
+    container.appendChild(flipCard);
 
     const flipCardFront = document.createElement("div");
     flipCardFront.classList.add("flip-card-front");
