@@ -1,4 +1,5 @@
-let prevClickedCard, flipped_and_matched, total_pairs, cards_total;
+let prevClickedCard, flipped_and_matched, total_pairs, cards_total, counter;
+let countClicks;
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy", "brown", "purple"];
 const flipcardTime = 800;
 const container = document.querySelector(".container");
@@ -14,12 +15,13 @@ function init() {
   para.innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
   container.appendChild(para);
 
-  var array = ["Please choose an option", 8, 12, 16, 20];
+
   const selectList = document.createElement("select");
   selectList.classList.add("select-css");
   selectList.addEventListener("change", grabValue);
   container.appendChild(selectList);
 
+  var array = ["How many cards do you want to play with?", 8, 12, 16, 20];
   for (var i = 0; i < array.length; i++) {
     var option = document.createElement("option");
     option.value = array[i];
@@ -29,17 +31,48 @@ function init() {
 }
 
 function grabValue(e) {
-  cards_total = e.target.value; 
+  cards_total = e.target.value;
   startGame();
 }
 
-function shuffle_array(array) {
-  array.sort(() => Math.random() - 0.5);
-}
+function startGame() {
+  countClicks = 0;
+  flipped_and_matched = 0;
+  container.innerHTML = "";
+
+  const game_colors = [];
+  total_pairs = cards_total / 2;
+
+  for (let i = 0; i < total_pairs; i++) {
+    game_colors.push(colors[i]);
+  }
+  const duplicate_colors = game_colors.concat(game_colors);
+
+  const randomized_colors = shuffle_array(duplicate_colors);
+
+  function shuffle_array(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
+
+  const arrowButton = document.createElement("div");
+  arrowButton.innerText = "⬅️";
+  arrowButton.classList.add("arrow");
+  container.appendChild(arrowButton);
+  arrowButton.addEventListener("click", init);
+
+  counter = document.createElement("div");
+  container.appendChild(counter);
+  counter.classList.add("count");
+  counter.innerHTML = countClicks;
+
+  create_cards(randomized_colors);
+};
 
 function flipCardToBack(event) {
   const currentClickedCard = event.currentTarget;
   currentClickedCard.classList.add("flipped");
+  countClicks ++;
+  counter.innerHTML = countClicks;
 
   if (prevClickedCard) {
     const colorsMatched =
@@ -73,27 +106,8 @@ function flipCardToBack(event) {
   }
 }
 
-function startGame() {
-  const randomized_colors = [];
-  total_pairs = cards_total / 2;
-
-  for (let i = 0; i < total_pairs; i++) {
-    randomized_colors.push(colors[i]);
-    randomized_colors.push(colors[i]);
-  }
-  flipped_and_matched = 0;
-
-  container.innerHTML = "";
-
-  const arrowButton = document.createElement("div");
-  arrowButton.innerText = "⬅️";
-  arrowButton.classList.add("arrow");
-  container.appendChild(arrowButton);
-  arrowButton.addEventListener("click", init);
-
-  shuffle_array(randomized_colors);
-  console.log(randomized_colors);
-  randomized_colors.forEach(function(color) {
+function create_cards(colors) {
+    colors.forEach(function(color) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
     flipCard.setAttribute("data-color", color)
@@ -121,10 +135,10 @@ function startGame() {
   });
 
   const cardfrontColor = document.querySelectorAll(".flip-card-front");
-  let randColor = randomized_colors[Math.floor(Math.random() * randomized_colors.length)];
+  let randColor = colors[Math.floor(Math.random() * colors.length)];
 
   cardfrontColor.forEach(function(cardfront) {
     cardfront.style.backgroundColor = randColor;
   });
 
-};
+}
