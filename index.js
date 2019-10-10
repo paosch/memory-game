@@ -1,30 +1,76 @@
-let prevClickedCard, flipped_and_matched, total_pairs;
-const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy"];
+let prevClickedCard, flippedAndMatched, totalPairs, cardsTotal, counter, countClicks;
+const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy", "brown", "purple"];
 const flipcardTime = 800;
+const container = document.querySelector(".container");
+
+init();
 
 function init() {
-  location.reload();
+  container.innerHTML = "";
+  const gameName = document.createElement("h1");
+  gameName.innerText = "Memory cards game";
+  container.appendChild(gameName);
+  const para = document.createElement("p");
+  para.innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+  container.appendChild(para);
+
+  const selectList = document.createElement("select");
+  selectList.classList.add("select-css");
+  selectList.addEventListener("change", grabValue);
+  container.appendChild(selectList);
+
+  var array = ["How many cards do you want to play with?", 8, 12, 16, 20];
+  for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    selectList.appendChild(option);
+  }
 }
 
-function grabValue(element) {
-  cards_total = element.value;
+function grabValue(e) {
+  cardsTotal = e.target.value;
+  startGame();
+}
+
+function startGame() {
+  countClicks = 0;
+  flippedAndMatched = 0;
+  container.innerHTML = "";
+
+  const gameColors = [];
+  totalPairs = cardsTotal / 2;
+
+  for (let i = 0; i < totalPairs; i++) {
+    gameColors.push(colors[i]);
+  }
+  const duplicateColors = gameColors.concat(gameColors);
+
+  const randomizedColors = shuffleArray(duplicateColors);
+
+  function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+  }
 
   const arrowButton = document.createElement("div");
   arrowButton.innerText = "⬅️";
   arrowButton.classList.add("arrow");
-  document.body.appendChild(arrowButton);
+  container.appendChild(arrowButton);
   arrowButton.addEventListener("click", init);
 
-  startGame();
-}
+  counter = document.createElement("div");
+  container.appendChild(counter);
+  counter.classList.add("count");
+  counter.innerHTML = countClicks;
 
-function shuffle_array(array) {
-  array.sort(() => Math.random() - 0.5);
-}
+  createCards(randomizedColors);
+};
 
 function flipCardToBack(event) {
   const currentClickedCard = event.currentTarget;
   currentClickedCard.classList.add("flipped");
+  countClicks ++;
+  counter.innerHTML = countClicks;
 
   if (prevClickedCard) {
     const colorsMatched =
@@ -37,7 +83,7 @@ function flipCardToBack(event) {
         prevClickedCard.classList.remove("flipped");
       }, flipcardTime);
     } else {
-      flipped_and_matched ++;
+      flippedAndMatched ++;
     }
 
     setTimeout(() => (prevClickedCard = null), flipcardTime);
@@ -45,31 +91,19 @@ function flipCardToBack(event) {
     prevClickedCard = currentClickedCard;
   }
 
-  if (flipped_and_matched === total_pairs) {
+  if (flippedAndMatched === totalPairs) {
     setTimeout(() => {
-      let all_cards = document.querySelectorAll(".flipped");
-      all_cards.forEach(thecard => thecard.classList.remove("flipped"));
+      const allCards = document.querySelectorAll(".flipped");
+      allCards.forEach(thecard => thecard.classList.remove("flipped"));
 
-      setTimeout(() => {
-        startGame();
-      }, flipcardTime);
+      setTimeout(() => startGame(), flipcardTime);
 
     }, flipcardTime);
   }
 }
 
-function startGame() {
-  const randomized_colors = [];
-  total_pairs = cards_total / 2;
-  for (let i = 0; i < total_pairs; i++) {
-    randomized_colors.push(colors[i]);
-    randomized_colors.push(colors[i]);
-  }
-  flipped_and_matched = 0;
-  document.querySelector(".container").innerHTML = "";
-  shuffle_array(randomized_colors);
-
-  randomized_colors.forEach(function(color) {
+function createCards(colors) {
+  colors.forEach(color => {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
     flipCard.setAttribute("data-color", color)
@@ -79,7 +113,7 @@ function startGame() {
     flipCardInner.classList.add("flip-card-inner");
 
     flipCard.appendChild(flipCardInner);
-    document.querySelector(".container").appendChild(flipCard);
+    container.appendChild(flipCard);
 
     const flipCardFront = document.createElement("div");
     flipCardFront.classList.add("flip-card-front");
@@ -97,10 +131,10 @@ function startGame() {
   });
 
   const cardfrontColor = document.querySelectorAll(".flip-card-front");
-  let randColor = randomized_colors[Math.floor(Math.random() * randomized_colors.length)];
+  let randColor = colors[Math.floor(Math.random() * colors.length)];
 
   cardfrontColor.forEach(function(cardfront) {
     cardfront.style.backgroundColor = randColor;
   });
 
-};
+}
