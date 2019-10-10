@@ -133,8 +133,6 @@ function createCards(colors) {
   const cardfrontColor = document.querySelectorAll(".flip-card-front");
   let randColor = colors[Math.floor(Math.random() * colors.length)];
 
-  cardfrontColor.forEach(function(cardfront) {
-    cardfront.style.backgroundColor = randColor;
-  });
+  cardfrontColor.forEach(cardfront => (cardfront.style.backgroundColor = randColor));
 
 }
