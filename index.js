@@ -1,5 +1,4 @@
-let prevClickedCard, flipped_and_matched, total_pairs, cards_total, counter;
-let countClicks;
+let prevClickedCard, flippedAndMatched, totalPairs, cardsTotal, counter, countClicks;
 const colors = ["dodgerblue", "red", "green", "pink", "orange", "yellow", "black", "navy", "brown", "purple"];
 const flipcardTime = 800;
 const container = document.querySelector(".container");
@@ -14,7 +13,6 @@ function init() {
   const para = document.createElement("p");
   para.innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
   container.appendChild(para);
-
 
   const selectList = document.createElement("select");
   selectList.classList.add("select-css");
@@ -31,26 +29,26 @@ function init() {
 }
 
 function grabValue(e) {
-  cards_total = e.target.value;
+  cardsTotal = e.target.value;
   startGame();
 }
 
 function startGame() {
   countClicks = 0;
-  flipped_and_matched = 0;
+  flippedAndMatched = 0;
   container.innerHTML = "";
 
-  const game_colors = [];
-  total_pairs = cards_total / 2;
+  const gameColors = [];
+  totalPairs = cardsTotal / 2;
 
-  for (let i = 0; i < total_pairs; i++) {
-    game_colors.push(colors[i]);
+  for (let i = 0; i < totalPairs; i++) {
+    gameColors.push(colors[i]);
   }
-  const duplicate_colors = game_colors.concat(game_colors);
+  const duplicateColors = gameColors.concat(gameColors);
 
-  const randomized_colors = shuffle_array(duplicate_colors);
+  const randomizedColors = shuffleArray(duplicateColors);
 
-  function shuffle_array(array) {
+  function shuffleArray(array) {
     return array.sort(() => Math.random() - 0.5);
   }
 
@@ -65,7 +63,7 @@ function startGame() {
   counter.classList.add("count");
   counter.innerHTML = countClicks;
 
-  create_cards(randomized_colors);
+  createCards(randomizedColors);
 };
 
 function flipCardToBack(event) {
@@ -85,7 +83,7 @@ function flipCardToBack(event) {
         prevClickedCard.classList.remove("flipped");
       }, flipcardTime);
     } else {
-      flipped_and_matched ++;
+      flippedAndMatched ++;
     }
 
     setTimeout(() => (prevClickedCard = null), flipcardTime);
@@ -93,21 +91,19 @@ function flipCardToBack(event) {
     prevClickedCard = currentClickedCard;
   }
 
-  if (flipped_and_matched === total_pairs) {
+  if (flippedAndMatched === totalPairs) {
     setTimeout(() => {
-      let all_cards = document.querySelectorAll(".flipped");
-      all_cards.forEach(thecard => thecard.classList.remove("flipped"));
+      const allCards = document.querySelectorAll(".flipped");
+      allCards.forEach(thecard => thecard.classList.remove("flipped"));
 
-      setTimeout(() => {
-        startGame();
-      }, flipcardTime);
+      setTimeout(() => startGame(), flipcardTime);
 
     }, flipcardTime);
   }
 }
 
-function create_cards(colors) {
-    colors.forEach(function(color) {
+function createCards(colors) {
+  colors.forEach(color => {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
     flipCard.setAttribute("data-color", color)
